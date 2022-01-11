@@ -1,163 +1,188 @@
+
+import 'dart:convert';
+
+/*ArtistInfo artistInfoFromJson(String str) => ArtistInfo.fromJson(json.decode(str));
+
+String artistInfoToJson(ArtistInfo data) => json.encode(data.toJson());*/
+
 class ArtistInfo {
-  TopAlbums? topAlbums;
+  ArtistInfo({
+       required this.results,
+  });
 
-  ArtistInfo({this.topAlbums});
+  Results results;
 
-  ArtistInfo.fromJson(Map<String, dynamic> json) {
-    topAlbums = json['topalbums'] != null
-        ?    TopAlbums.fromJson(json['topalbums'])
-        : null;
-  }
+  factory ArtistInfo.fromJson(Map<String, dynamic> json) => ArtistInfo(
+    results: Results.fromJson(json["results"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =   Map<String, dynamic>();
-    if (this.topAlbums != null) {
-      data['topalbums'] = this.topAlbums!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "results": results.toJson(),
+  };
 }
 
-class TopAlbums {
-  List<Album>? album;
-  Attr? attr;
+class Results {
+  Results({
+    required this.openSearchQuery,
+    required this.openSearchTotalResults,
+    required this.openSearchStartIndex,
+    required this.openSearchItemsPerPage,
+    required this.artistMatches,
+    required this.attr,
+  });
 
-  TopAlbums({this.album, this.attr});
+  OpenSearchQuery openSearchQuery;
+  String openSearchTotalResults;
+  String openSearchStartIndex;
+  String openSearchItemsPerPage;
+  ArtistMatches artistMatches;
+  Attr attr;
 
-  TopAlbums.fromJson(Map<String, dynamic> json) {
-    if (json['album'] != null) {
-      album = <Album>[];
-      json['album'].forEach((v) {
-        album!.add(  Album.fromJson(v));
-      });
-    }
-    attr = json['@attr'] != null ?    Attr.fromJson(json['@attr']) : null;
-  }
+  factory Results.fromJson(Map<String, dynamic> json) => Results(
+    openSearchQuery: OpenSearchQuery.fromJson(json["opensearch:Query"]),
+    openSearchTotalResults: json["opensearch:totalResults"],
+    openSearchStartIndex: json["opensearch:startIndex"],
+    openSearchItemsPerPage: json["opensearch:itemsPerPage"],
+    artistMatches: ArtistMatches.fromJson(json["artistmatches"]),
+    attr: Attr.fromJson(json["@attr"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =    Map<String, dynamic>();
-    if (this.album != null) {
-      data['album'] = this.album!.map((v) => v.toJson()).toList();
-    }
-    if (this.attr != null) {
-      data['@attr'] = this.attr!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "opensearch:Query": openSearchQuery.toJson(),
+    "opensearch:totalResults": openSearchTotalResults,
+    "opensearch:startIndex": openSearchStartIndex,
+    "opensearch:itemsPerPage": openSearchItemsPerPage,
+    "artistmatches": artistMatches.toJson(),
+    "@attr": attr.toJson(),
+  };
 }
 
-class Album {
-  String? name;
-  int? playCount;
-  String? mbid;
-  String? url;
-  ArtistInfo? artist;
-  List<Image>? image;
+class ArtistMatches {
+  ArtistMatches({
+    required this.artist,
+  });
 
-  Album(
-      {this.name,
-        this.playCount,
-        this.mbid,
-        this.url,
-        this.artist,
-        this.image});
+  List<Artist> artist;
 
-  Album.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    playCount = json['playcount'];
-    mbid = json['mbid'];
-    url = json['url'];
-    artist =
-    json['artist'] != null ?   ArtistInfo.fromJson(json['artist']) : null;
-    if (json['image'] != null) {
-      image = <Image>[];
-      json['image'].forEach((v) {
-        image!.add(  Image.fromJson(v));
-      });
-    }
-  }
+  factory ArtistMatches.fromJson(Map<String, dynamic> json) => ArtistMatches(
+    artist: List<Artist>.from(json["artist"].map((x) => Artist.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =   Map<String, dynamic>();
-    data['name'] = this.name;
-    data['playcount'] = this.playCount;
-    data['mbid'] = this.mbid;
-    data['url'] = this.url;
-    if (this.artist != null) {
-      data['artist'] = this.artist!.toJson();
-    }
-    if (this.image != null) {
-      data['image'] = this.image!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "artist": List<dynamic>.from(artist.map((x) => x.toJson())),
+  };
 }
 
 class Artist {
-  String? name;
-  String? mbid;
-  String? url;
+  Artist({
+    required this.name,
+    required this.listeners,
+    required this.mbid,
+    required this.url,
+    required this.streamable,
+    required this.image,
+  });
 
-  Artist({this.name, this.mbid, this.url});
+  String name;
+  String listeners;
+  String mbid;
+  String url;
+  String streamable;
+  List<Image> image;
 
-  Artist.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    mbid = json['mbid'];
-    url = json['url'];
-  }
+  factory Artist.fromJson(Map<String, dynamic> json) => Artist(
+    name: json["name"],
+    listeners: json["listeners"],
+    mbid: json["mbid"],
+    url: json["url"],
+    streamable: json["streamable"],
+    image: List<Image>.from(json["image"].map((x) => Image.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =   Map<String, dynamic>();
-    data['name'] = this.name;
-    data['mbid'] = this.mbid;
-    data['url'] = this.url;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "listeners": listeners,
+    "mbid": mbid,
+    "url": url,
+    "streamable": streamable,
+
+  };
 }
 
 class Image {
-  String? text;
-  String? size;
+  Image({
+    required this.text,
+    required this.size,
+  });
 
-  Image({this.text, this.size});
+  String text;
+  Size size;
 
-  Image.fromJson(Map<String, dynamic> json) {
-    text = json['#text'];
-    size = json['size'];
-  }
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
+    text: json["#text"],
+    size: sizeValues.map[json["size"]]! ,
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
-    data['#text'] = this.text;
-    data['size'] = this.size;
-    return data;
-  }
+
 }
 
+enum Size { SMALL, MEDIUM, LARGE, EXTRALARGE, MEGA }
+
+final sizeValues = EnumValues({
+  "extralarge": Size.EXTRALARGE,
+  "large": Size.LARGE,
+  "medium": Size.MEDIUM,
+  "mega": Size.MEGA,
+  "small": Size.SMALL
+});
+
 class Attr {
-  String? artist;
-  String? page;
-  String? perPage;
-  String? totalPages;
-  String? total;
+  Attr({
+    required this.attrFor,
+  });
 
-  Attr({this.artist, this.page, this.perPage, this.totalPages, this.total});
+  String attrFor;
 
-  Attr.fromJson(Map<String, dynamic> json) {
-    artist = json['artist'];
-    page = json['page'];
-    perPage = json['perPage'];
-    totalPages = json['totalPages'];
-    total = json['total'];
-  }
+  factory Attr.fromJson(Map<String, dynamic> json) => Attr(
+    attrFor: json["for"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =   Map<String, dynamic>();
-    data['artist'] = this.artist;
-    data['page'] = this.page;
-    data['perPage'] = this.perPage;
-    data['totalPages'] = this.totalPages;
-    data['total'] = this.total;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "for": attrFor,
+  };
+}
+
+class OpenSearchQuery {
+  OpenSearchQuery({
+    required this.text,
+    required this.role,
+    required this.searchTerms,
+    required this.startPage,
+  });
+
+  String text;
+  String role;
+  String searchTerms;
+  String startPage;
+
+  factory OpenSearchQuery.fromJson(Map<String, dynamic> json) => OpenSearchQuery(
+    text: json["#text"],
+    role: json["role"],
+    searchTerms: json["searchTerms"],
+    startPage: json["startPage"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "#text": text,
+    "role": role,
+    "searchTerms": searchTerms,
+    "startPage": startPage,
+  };
+}
+
+class EnumValues<T> {
+   Map<String, T> map;
+  EnumValues(this.map);
+
+
 }

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:last_fm_audio_management/core/themes/app_themes.dart';
 import 'package:last_fm_audio_management/logic/cubit/theme_cubit/theme_cubit.dart';
+import 'package:last_fm_audio_management/logic/repository/artist_info_repo.dart';
 import 'package:last_fm_audio_management/presentation/router/app_router.dart';
+import 'package:sizer/sizer.dart';
+
+import 'logic/bloc/artist_info_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +27,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ThemeCubit>(
             create: (context) => ThemeCubit()
         ),
+        BlocProvider<ArtistInfoBloc>(
+          create: (context) => ArtistInfoBloc(ArtistInfoRepo()),
+        ),
       ],
       child: MusicManagerApp(),
     );
@@ -34,13 +41,17 @@ class MusicManagerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: context.select((ThemeCubit themeCubit) => themeCubit.state.themeMode),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: _appRouter.onGenerateRoute ,
-    );
+    return Sizer(builder: (context, orientation, deviceType){
+      return MaterialApp(
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: context.select((ThemeCubit themeCubit) => themeCubit.state.themeMode),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: _appRouter.onGenerateRoute ,
+      );
+    });
+
+
   }
 }
 

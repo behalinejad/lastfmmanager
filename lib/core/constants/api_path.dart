@@ -9,9 +9,9 @@ class ApiPaths {
   static final apiKey = '2c072e689f81e83b608116fcac308d7f';
 
 
-  static String getArtistPath(String artistName){
+  static String getArtistPath(String artistName,int page){
 
-    return 'https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=$artistName&api_key=$apiKey&format=json' ;
+    return 'https://ws.audioscrobbler.com/2.0/?method=artist.search&page=$page&artist=$artistName&api_key=$apiKey&format=json' ;
   }
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
 
 class AppThemes {
   /// The AppThemes class is implemented to contain the themes which used inside the app
@@ -8,20 +9,20 @@ class AppThemes {
   /// thanks to ColorsInspo.com the colors where chosen for both Dark and Light themes
 
   static Color lightBackgroundColor = const Color.fromRGBO(226, 243, 245, 1);
-  static Color lightPrimaryColor = const Color.fromRGBO(34, 209, 238, 1);
+  static Color lightButtonColor = const Color.fromRGBO(34, 209, 238, 1);
   static Color lightAccentColor = const Color.fromRGBO(61, 90, 241, 1);
   static Color lightElementsColor = const Color.fromRGBO(14, 21, 58, 1);
 
   static Color darkBackgroundColor = const Color.fromRGBO(52, 34, 46, 1);
-  static Color darkPrimaryColor = const Color.fromRGBO(226, 67, 75, 1);
-  static Color darkAccentColor = const Color.fromRGBO(249, 191, 143, 1);
+  static Color darkButtonColor = const Color.fromRGBO(249, 191, 143, 1);
+  static Color darkAccentColor = const Color.fromRGBO(226, 67, 75, 1);
   static Color darkElementsColor = const Color.fromRGBO(254, 233, 215, 1);
 
   const AppThemes._();
 
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: lightPrimaryColor,
+    buttonColor: lightButtonColor,
     accentColor: lightAccentColor,
     backgroundColor: lightBackgroundColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -29,7 +30,7 @@ class AppThemes {
 
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: darkPrimaryColor,
+    buttonColor: darkButtonColor,
     accentColor: darkAccentColor,
     backgroundColor: darkBackgroundColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -46,8 +47,13 @@ class AppThemes {
         systemNavigationBarColor: themeMode == ThemeMode.light
             ? lightBackgroundColor
             : darkBackgroundColor,
-        systemNavigationBarDividerColor: Colors.blue,
+        systemNavigationBarDividerColor: Colors.transparent,
       ),
     );
   }
+
+
+
+
+
 }

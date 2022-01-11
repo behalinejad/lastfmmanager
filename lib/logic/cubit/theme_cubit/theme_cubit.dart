@@ -5,10 +5,7 @@ import 'package:last_fm_audio_management/core/themes/app_themes.dart';
 
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit() : super(ThemeState(themeMode: ThemeMode.dark)){
-
-  }
-
+  ThemeCubit() : super(ThemeState(themeMode: ThemeMode.dark)) ;
 
 void updateAppTheme (ThemeMode themeMode){
 
