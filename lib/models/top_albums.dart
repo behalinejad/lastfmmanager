@@ -1,16 +1,16 @@
-class TopAlbum {
+class AlbumTracks {
   TopAlbums? topAlbums;
 
-  TopAlbum({this.topAlbums});
+  AlbumTracks({ required this.topAlbums});
 
-  TopAlbum.fromJson(Map<String, dynamic> json) {
+  AlbumTracks.fromJson(Map<String, dynamic> json) {
     topAlbums = json['topalbums'] != null
-        ? new TopAlbums.fromJson(json['topalbums'])
+        ?  TopAlbums.fromJson(json['topalbums'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.topAlbums != null) {
       data['topalbums'] = this.topAlbums!.toJson();
     }
@@ -28,14 +28,14 @@ class TopAlbums {
     if (json['album'] != null) {
       album = <Album>[];
       json['album'].forEach((v) {
-        album!.add(new Album.fromJson(v));
+        album!.add( Album.fromJson(v));
       });
     }
-    attr = json['@attr'] != null ? new Attr.fromJson(json['@attr']) : null;
+    attr = json['@attr'] != null ?  Attr.fromJson(json['@attr']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.album != null) {
       data['album'] = this.album!.map((v) => v.toJson()).toList();
     }
@@ -68,17 +68,17 @@ class Album {
     mbid = json['mbid'];
     url = json['url'];
     artist =
-    json['artist'] != null ? new Artist.fromJson(json['artist']) : null;
+    json['artist'] != null ?   Artist.fromJson(json['artist']) : null;
     if (json['image'] != null) {
       image = <Image>[];
       json['image'].forEach((v) {
-        image!.add(new Image.fromJson(v));
+        image!.add(  Image.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =   Map<String, dynamic>();
     data['name'] = this.name;
     data['playcount'] = this.playcount;
     data['mbid'] = this.mbid;
@@ -107,7 +107,7 @@ class Artist {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =   Map<String, dynamic>();
     data['name'] = this.name;
     data['mbid'] = this.mbid;
     data['url'] = this.url;
@@ -127,7 +127,7 @@ class Image {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =   Map<String, dynamic>();
     data['#text'] = this.text;
     data['size'] = this.size;
     return data;
@@ -152,7 +152,7 @@ class Attr {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =   Map<String, dynamic>();
     data['artist'] = this.artist;
     data['page'] = this.page;
     data['perPage'] = this.perPage;

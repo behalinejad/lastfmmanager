@@ -10,13 +10,21 @@ class ApiPaths {
 
 
   static String getArtistPath(String artistName,int page){
-
       return 'https://ws.audioscrobbler.com/2.0/?method=artist.search&page=$page&artist=$artistName&api_key=$apiKey&format=json' ;
+
   }
 
 
-  static String getArtistTopAlbumsPath(String artistName){
+  static String getArtistTopAlbumsPath(String mbId,int page){
 
-    return 'https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=$artistName&api_key=$apiKey&format=json' ;
+    return 'https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&page=$page&&mbid=$mbId&api_key=$apiKey&format=json' ;
   }
+
+
+  static String getAlbumsTrackPath(String mbId){
+
+    return 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=$apiKey&mbid=$mbId&format=json' ;
+  }
+
+
 }

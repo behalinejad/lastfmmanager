@@ -12,8 +12,10 @@ class AppTextStyles {
 
 
   static final  screenHeaderTextStyle = GoogleFonts.lobsterTwo(fontSize: 20.sp,);
+  static final  screenHeader2TextStyle = GoogleFonts.lato(fontSize: 13.sp,);
   static final  screenButtonTextStyle = GoogleFonts.lato(fontSize: 10.sp,color: Colors.black87);
   static final  screenWarningTextStyle = GoogleFonts.lato(fontSize: 12.sp);
+
 
 
 

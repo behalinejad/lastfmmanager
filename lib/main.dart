@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:last_fm_audio_management/core/themes/app_themes.dart';
+import 'package:last_fm_audio_management/logic/bloc/album_tracks_bloc.dart';
+import 'package:last_fm_audio_management/logic/bloc/top_albums_bloc.dart';
 import 'package:last_fm_audio_management/logic/cubit/theme_cubit/theme_cubit.dart';
+import 'package:last_fm_audio_management/logic/repository/album_tracks_repo.dart';
 import 'package:last_fm_audio_management/logic/repository/artist_info_repo.dart';
+import 'package:last_fm_audio_management/logic/repository/top_albums.repo.dart';
 import 'package:last_fm_audio_management/presentation/router/app_router.dart';
 import 'package:sizer/sizer.dart';
 
@@ -30,6 +34,12 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ArtistInfoBloc>(
           create: (context) => ArtistInfoBloc(ArtistInfoRepo()),
         ),
+        BlocProvider<TopAlbumsBloc>(
+          create: (context) => TopAlbumsBloc(TopAlbumsRepo()),
+        ),
+        BlocProvider<AlbumTracksBloc>(
+          create: (context) => AlbumTracksBloc(AlbumTracksRepo()),
+        ),
       ],
       child: MusicManagerApp(),
     );
@@ -47,7 +57,7 @@ class MusicManagerApp extends StatelessWidget {
         darkTheme: AppThemes.darkTheme,
         themeMode: context.select((ThemeCubit themeCubit) => themeCubit.state.themeMode),
         debugShowCheckedModeBanner: false,
-        onGenerateRoute: _appRouter.onGenerateRoute ,
+        onGenerateRoute:_appRouter.onGenerateRoute ,
       );
     });
 

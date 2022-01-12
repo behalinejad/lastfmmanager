@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
     context.read<ThemeCubit>().updateAppTheme(ThemeMode.light  ) :
     context.read<ThemeCubit>().updateAppTheme(ThemeMode.dark  )  ,
     child: Padding(
-      padding:  EdgeInsets.only(top: 2.sp),
+      padding:  EdgeInsets.only(top: 15.sp),
       child: context.read<ThemeCubit>().state.themeMode == ThemeMode.light ?
       Icon(Icons.nightlight_round,color: Colors.black87) :
       Icon(Icons.wb_sunny,color: Colors.white),

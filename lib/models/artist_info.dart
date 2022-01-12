@@ -1,9 +1,6 @@
 
 import 'dart:convert';
 
-/*ArtistInfo artistInfoFromJson(String str) => ArtistInfo.fromJson(json.decode(str));
-
-String artistInfoToJson(ArtistInfo data) => json.encode(data.toJson());*/
 
 class ArtistInfo {
   ArtistInfo({

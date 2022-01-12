@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:last_fm_audio_management/models/artist_info.dart';
+import 'package:sizer/sizer.dart';
 
 
 
@@ -13,17 +14,12 @@ class CustomListTile  extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: InkWell(                         /// to act like a Button while tapping on
         onTap: () async {
-          /*await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return ShowResultDetailPage(result: this.result,);
-            }),
-          );*/
+          Navigator.of(context).pushNamed('/top_albums',arguments: artist.mbid);
         },
         splashColor: Colors.black,
         child: Container(
-          height: MediaQuery.of(context).size.height /7,
-          color:Color.fromRGBO(86 , 86, 86, 0.8) ,
+          height: 13.h,
+          color:Theme.of(context).cardColor ,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -32,30 +28,32 @@ class CustomListTile  extends StatelessWidget {
                     return Image.asset('not_found.jpg') ; ///in the case of error to load Image throw network the not_found Image will be appear
                   }),*/
               Padding(
-                padding: const EdgeInsets.only(left: 20,bottom: 5),
+                padding:  EdgeInsets.only(top: 2.sp, left: 5.sp,bottom: 2.sp,right: 5.sp),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          width:MediaQuery.of(context).size.width/1.9 ,
-                          child: Text(artist.name,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText2,)),
+                          width: 40.w ,
+                          child: Text(artist.name,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,)),
 
-                      SizedBox(height: 20,),
+                      SizedBox(height: 2.h,),
                       Container(
-                        width: MediaQuery.of(context).size.width/ 2,
-                        child: Row(    // Rows for Species and Gender
+                        width: 75.w,
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+
                           children: [
-                            Column(   // Species column
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Url:',style: Theme.of(context).textTheme.caption,),
-                                SizedBox(height: 2,),
-                                Text(artist.url,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,)
+                                SizedBox(height: 2.sp,),
+                                Container(
+                                    width: 50.w,
+                                    child: Text(artist.url,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,))
                               ],
 
                             ),
@@ -65,7 +63,7 @@ class CustomListTile  extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('listener:',style: Theme.of(context).textTheme.caption,),
-                                SizedBox(height: 2,),
+                                SizedBox(height: 2.sp,),
                                 Text(artist.listeners,style: Theme.of(context).textTheme.bodyText1,)
                               ],
 
@@ -73,7 +71,8 @@ class CustomListTile  extends StatelessWidget {
 
                           ],
                         ),
-                      )
+                      ),
+
                     ],
                   ),
                 ),
