@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_fm_audio_management/logic/bloc/stored_albums_bloc.dart';
+import 'package:last_fm_audio_management/models/stored_albums.dart' ;
 import 'package:last_fm_audio_management/models/top_albums.dart' as topAlbum;
 import 'package:sizer/sizer.dart';
 
@@ -8,8 +11,11 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
   final topAlbum.Album album ;
   const TopAlbumsCustomListTile ({Key? key,required this.album, }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    final storedAlbumBloc = BlocProvider.of<StoredAlbumsBloc>(context);
+
     String imageUrl = '';
     if (album.image != null)    ///Using the large format of the image in case of existence
       imageUrl = album.image![2].text ?? '' ;
@@ -58,8 +64,71 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
                ),
               Padding(
                 padding:  EdgeInsets.only(right: 1.w),
-                child: IconButton(icon: Icon(Icons.favorite_border,size: 30,),onPressed: (){},),
-              )
+                child: BlocBuilder<StoredAlbumsBloc, StoredAlbumsState>(
+
+                 /// the Icon that need to Colored by bloc state management in case of adding to Stored Albums
+
+                    builder: (context, state) {
+                       bool _isAlbumInStoredList  = false ;
+                       try {
+                         if (state is StoredAlbumsIsLoaded)
+                           if (state.getStoredAlbums.albums != null) {
+                             Album tmpAlbum = state.getStoredAlbums.albums!.firstWhere((element) =>
+                             element.albumMbId == album.mbid);
+                             if (tmpAlbum.albumMbId != null){
+                               _isAlbumInStoredList = true ;
+                             }
+                           }
+                       } catch (e) {
+
+                       }
+                       return IconButton(icon: Icon(_isAlbumInStoredList  ? Icons.favorite  :  Icons.favorite_border,size: 30,),onPressed: (){
+
+                         if (!_isAlbumInStoredList) {
+                           if (state is StoredAlbumsIsLoaded) {
+                             try {
+                               StoredAlbums storedAlbums = state.getStoredAlbums;
+
+                               String imageUrl = ' ';
+                               if (album.image != null)
+                                 if (album.image![2].text != null && album.image![2].text != '')
+                                   imageUrl = album.image![2].text! ;
+                               Album tmpAlbum = Album(albumMbId: album.mbid,albumName: album.name,
+                                                                artistName: album.artist?.name.toString() ?? '',artistMbId: album.artist?.mbid ?? '',imageUrl:imageUrl  );
+                               if (storedAlbums.albums != null)
+                                storedAlbums.albums?.add(tmpAlbum);
+                                else
+                                  storedAlbums.albums = [tmpAlbum];
+                               storedAlbumBloc.add(FetchStoredAlbums(storedAlbums));
+                             } catch (e) {
+                               print(e);
+                             }
+                           }
+                         }else {
+                           try {
+                             final storedAlbumBloc = BlocProvider.of<StoredAlbumsBloc>(context);
+                             StoredAlbumsState _state = storedAlbumBloc.state ;
+                             StoredAlbums storedAlbums =StoredAlbums();
+                             if (_state is StoredAlbumsIsLoaded)
+                               storedAlbums = _state.getStoredAlbums;
+                             if (storedAlbums.albums != null) {
+                               storedAlbums.albums?.removeWhere((element) =>
+                               element.albumMbId ==  album.mbid);
+                               storedAlbumBloc.add(FetchStoredAlbums(storedAlbums));
+
+                             }
+
+                           } catch (e) {
+                             print(e);
+                           }
+                         }
+
+                       });
+                    }
+
+                  ),
+                ),
+
              ],
            ),
         ),
@@ -76,4 +145,9 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
           Icon(Icons.music_note ,size:40.sp,color: Theme.of(context).accentColor,),
         ],
       ));
+}
+
+bool _isAlbumInStoredList (BuildContext context){
+
+  return false ;
 }

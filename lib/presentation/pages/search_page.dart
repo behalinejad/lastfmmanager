@@ -84,8 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                     _currentPage = 1;
                     _currentResults = [];
                     _currentSearchStr = searchText;
-                    artistInfoBloc
-                        .add(FetchArtistInfo(_currentPage, searchText));
+                    artistInfoBloc.add(FetchArtistInfo(_currentPage, searchText));
                   }
                 },
                 child: SizedBox(
@@ -197,8 +196,7 @@ class _SearchPageState extends State<SearchPage> {
                     _currentArtistInfo.results.openSearchTotalResults,
                   )) {
                 final artistInfoBloc = BlocProvider.of<ArtistInfoBloc>(context);
-                artistInfoBloc
-                    .add(FetchArtistInfo(_currentPage, _currentSearchStr));
+                artistInfoBloc.add(FetchArtistInfo(_currentPage, _currentSearchStr));
               } else
                 refreshController.loadNoData();
 

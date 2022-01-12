@@ -40,7 +40,6 @@ class TopAlbumsIsLoaded extends TopAlbumsState{
   final AlbumTracks  _topAlbums ;
   TopAlbumsIsLoaded(this._topAlbums);
 
-
   AlbumTracks get getTopAlbums => _topAlbums;
 
   @override
@@ -68,7 +67,7 @@ class TopAlbumsBloc extends Bloc<TopAlbumsEvent,TopAlbumsState>{
         yield TopAlbumsIsNotLoaded();
       }
     }else if (event is ResetTopAlbums){
-      yield TopAlbumsIsNotSearched();
+       yield TopAlbumsIsNotSearched();
     }
   }
 }
