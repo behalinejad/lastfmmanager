@@ -86,9 +86,11 @@ class _AlbumTracksState extends State<AlbumTracks> {
                 ? _buildCustomListView(_albumTrackList,_currentAlbumTracks)
                 : Padding(
               padding: EdgeInsets.only(top: 5.h),
-              child: Text(
-                ' OOPs , Nothing found ',
-                style: AppTextStyles.screenHeader2TextStyle,
+              child: Center(
+                child: Text(
+                  ' OOPs , Nothing found  ',
+                  style: AppTextStyles.screenHeader2TextStyle,
+                ),
               ),
             );
           }
@@ -96,9 +98,11 @@ class _AlbumTracksState extends State<AlbumTracks> {
 
             return Padding(
               padding: EdgeInsets.only(top: 5.h),
-              child: Text(
-                ' OOPs , Nothing found ',
-                style: AppTextStyles.screenHeader2TextStyle,
+              child: Center(
+                child: Text(
+                  ' OOPs , Nothing found . ',
+                  style: AppTextStyles.screenHeader2TextStyle,
+                ),
               ),
             );
 
@@ -164,9 +168,11 @@ class _AlbumTracksState extends State<AlbumTracks> {
         ),
       );
     } catch (e) {
-      return Text(
-        'OOPs something went wrong ',
-        style: AppTextStyles.screenWarningTextStyle,
+      return Center(
+        child: Text(
+          'OOPs something went wrong ',
+          style: AppTextStyles.screenWarningTextStyle,
+        ),
       );
     }
   }

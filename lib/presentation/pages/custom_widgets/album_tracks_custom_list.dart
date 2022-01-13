@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:last_fm_audio_management/logic/bloc/stored_albums_bloc.dart';
+import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/models/album_tracks.dart';
-
-
 import 'package:sizer/sizer.dart';
 
 
@@ -40,9 +38,9 @@ class AlbumTracksCustomListTile  extends StatelessWidget {
                     child: Column( // PlayCount Column of Album
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Track Name :',style: Theme.of(context).textTheme.caption,),
+                        Text('Track Name :',style: AppTextStyles.tileCaptionTextStyle,),
                         SizedBox(height: 5.sp,),
-                        Text(track.name.toString() ,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,),
+                        Text(track.name.toString() ,overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,),
                       ],
                     ),
                   ),

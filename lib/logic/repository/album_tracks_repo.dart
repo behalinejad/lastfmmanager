@@ -14,6 +14,7 @@ class AlbumTracksRepo {
   Future<AlbumTracks> makeAlbumTracksGetRequest(String mbId  )  async {
     try {
       late Response<String> response ;
+      print(ApiPaths.getAlbumsTrackPath(mbId));
       response = await dio.get(ApiPaths.getAlbumsTrackPath(mbId));
 
       if ( response.statusCode != 200 )
@@ -26,7 +27,6 @@ class AlbumTracksRepo {
 
 
     } on Exception catch (e) {
-
       throw e;
     }
   }

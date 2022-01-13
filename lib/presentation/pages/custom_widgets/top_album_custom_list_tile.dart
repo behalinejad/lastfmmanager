@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/logic/bloc/stored_albums_bloc.dart';
 import 'package:last_fm_audio_management/models/stored_albums.dart' ;
 import 'package:last_fm_audio_management/models/top_albums.dart' as topAlbum;
@@ -47,13 +48,13 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
                      mainAxisAlignment: MainAxisAlignment.start,
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
-                       Text(album.name ?? '',overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,),
+                       Text(album.name ?? '',overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,),
                        SizedBox(height: 4.h,),
                        Column( // PlayCount Column of Album
                          children: [
-                           Text('Play count:',style: Theme.of(context).textTheme.caption,),
+                           Text('Play count:',style: AppTextStyles.tileCaptionTextStyle,),
                            SizedBox(height: 2.sp,),
-                           Text(album.playcount.toString() ,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,),
+                           Text(album.playcount.toString() ,overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,),
                          ],
                        ),
 

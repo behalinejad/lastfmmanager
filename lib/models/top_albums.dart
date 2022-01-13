@@ -1,9 +1,9 @@
-class AlbumTracks {
+class ArtistTopAlbums {
   TopAlbums? topAlbums;
 
-  AlbumTracks({ required this.topAlbums});
+  ArtistTopAlbums({ required this.topAlbums});
 
-  AlbumTracks.fromJson(Map<String, dynamic> json) {
+  ArtistTopAlbums.fromJson(Map<String, dynamic> json) {
     topAlbums = json['topalbums'] != null
         ?  TopAlbums.fromJson(json['topalbums'])
         : null;

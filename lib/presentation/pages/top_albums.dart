@@ -15,7 +15,7 @@ class TopAlbums extends StatefulWidget {
   _TopAlbumsState createState() => _TopAlbumsState();
 }
 
-late AlbumTracks _currentTopAlbumOfArtist;
+late ArtistTopAlbums _currentTopAlbumOfArtist;
 
 int _currentPage = 1;     ///to control the current page for pagination
 

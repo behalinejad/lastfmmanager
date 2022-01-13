@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/models/artist_info.dart';
 import 'package:sizer/sizer.dart';
 
@@ -21,7 +22,8 @@ class CustomListTile  extends StatelessWidget {
           height: 13.h,
           color:Theme.of(context).cardColor ,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
             children: [
              /* Image.network(result.image,
                   errorBuilder: ( context,  exception,  stackTrace) {
@@ -36,7 +38,7 @@ class CustomListTile  extends StatelessWidget {
                     children: [
                       Container(
                           width: 40.w ,
-                          child: Text(artist.name,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,)),
+                          child: Text(artist.name,overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,)),
 
                       SizedBox(height: 2.h,),
                       Container(
@@ -49,11 +51,11 @@ class CustomListTile  extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Url:',style: Theme.of(context).textTheme.caption,),
+                                Text('Url:',style: AppTextStyles.tileCaptionTextStyle,),
                                 SizedBox(height: 2.sp,),
                                 Container(
                                     width: 50.w,
-                                    child: Text(artist.url,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,))
+                                    child: Text(artist.url,overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,))
                               ],
 
                             ),
@@ -62,9 +64,9 @@ class CustomListTile  extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('listener:',style: Theme.of(context).textTheme.caption,),
+                                Text('listener:',style: AppTextStyles.tileCaptionTextStyle,),
                                 SizedBox(height: 2.sp,),
-                                Text(artist.listeners,style: Theme.of(context).textTheme.bodyText1,)
+                                Text(artist.listeners,style: AppTextStyles.tileBodyTextStyle,)
                               ],
 
                             ),

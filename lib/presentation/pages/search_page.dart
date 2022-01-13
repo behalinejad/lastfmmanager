@@ -27,10 +27,7 @@ bool _isPagination = false;
 TextEditingController _searchTextFieldController = TextEditingController();
 
 class _SearchPageState extends State<SearchPage> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +59,7 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               width: 50.w,
               child: TextField(
+                key: Key('searchArtistTextField'),
                 controller: _searchTextFieldController,
                 decoration: InputDecoration(
                     filled: true,
@@ -74,25 +72,30 @@ class _SearchPageState extends State<SearchPage> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 10.sp),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).buttonColor,
-                    textStyle: AppTextStyles.screenButtonTextStyle),
-                onPressed: () {
-                  var searchText = _searchTextFieldController.value.text.trim();
-                  if (searchText.length > 0) {
-                    _currentPage = 1;
-                    _currentResults = [];
-                    _currentSearchStr = searchText;
-                    artistInfoBloc.add(FetchArtistInfo(_currentPage, searchText));
-                  }
-                },
-                child: SizedBox(
-                    height: 6.h,
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.black54,
-                    )),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.sp),
+                child: TextButton(
+                  key: Key('ArtistButton'),
+                  style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).buttonColor,
+                      textStyle: AppTextStyles.screenButtonTextStyle),
+                  onPressed: () {
+                    var searchText = _searchTextFieldController.value.text.trim();
+                    if (searchText.length > 0) {
+                      _currentPage = 1;
+                      _currentResults = [];
+                      _currentSearchStr = searchText;
+                      artistInfoBloc.add(FetchArtistInfo(_currentPage, searchText));
+                    }
+                  },
+                  child: SizedBox(
+                      height: 6.h,
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.black54,
+                        size: 30.sp,
+                      )),
+                ),
               ),
             ),
           ],
@@ -178,7 +181,7 @@ class _SearchPageState extends State<SearchPage> {
       return Expanded(
         child: Padding(
           padding:
-              EdgeInsets.only(top: 10.h, left: 5.w, right: 5.w, bottom: 2.h),
+              EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w, bottom: 2.h),
           child: SmartRefresher(
             // pagination  pull to refresh Widget
             controller: refreshController,

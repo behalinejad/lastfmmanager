@@ -12,10 +12,11 @@ class StoredAlbumsEvent extends Equatable{
 /// The Events of Bloc
 class FetchStoredAlbums extends StoredAlbumsEvent {
   final  _storedAlbums ;
-
   FetchStoredAlbums(this._storedAlbums);
+
   @override
   List<Object?> get props => [this._storedAlbums];
+
 }
 
 class ResetStoredAlbums extends StoredAlbumsEvent {}

@@ -32,15 +32,14 @@ class TopAlbumsState extends Equatable {
 /// The States Of bloc
 class TopAlbumsIsNotSearched extends TopAlbumsState{}
 
-
 class TopAlbumsIsLoading extends TopAlbumsState{}
 
 
 class TopAlbumsIsLoaded extends TopAlbumsState{
-  final AlbumTracks  _topAlbums ;
+  final ArtistTopAlbums  _topAlbums ;
   TopAlbumsIsLoaded(this._topAlbums);
 
-  AlbumTracks get getTopAlbums => _topAlbums;
+  ArtistTopAlbums get getTopAlbums => _topAlbums;
 
   @override
   List<Object?> get props => [this._topAlbums];
@@ -61,13 +60,13 @@ class TopAlbumsBloc extends Bloc<TopAlbumsEvent,TopAlbumsState>{
       yield TopAlbumsIsLoading();
 
       try{
-        AlbumTracks topAlbums = await topAlbumsRepo.makeArtistTopAlbumsGetRequest( event._mbId,event._page);
+        ArtistTopAlbums topAlbums = await topAlbumsRepo.makeArtistTopAlbumsGetRequest( event._mbId,event._page);
         yield TopAlbumsIsLoaded(topAlbums);
       }catch(e){
         yield TopAlbumsIsNotLoaded();
       }
     }else if (event is ResetTopAlbums){
-       yield TopAlbumsIsNotSearched();
+      yield TopAlbumsIsNotSearched();
     }
   }
 }

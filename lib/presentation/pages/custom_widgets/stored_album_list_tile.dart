@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/logic/bloc/stored_albums_bloc.dart';
-import 'package:last_fm_audio_management/models/artist_info.dart'as artistInfo ;
 import 'package:last_fm_audio_management/models/stored_albums.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,7 +17,12 @@ class StoredAlbumsCustomListTile  extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: InkWell(                         /// to act like a Button while tapping on
         onTap: () async {
+          try {
+            Navigator.of(context).pushNamed('/album_tracks',arguments: album.albumMbId);
 
+          } catch (e) {
+
+          }
         },
         splashColor: Colors.black,
         child: Container(
@@ -27,7 +32,8 @@ class StoredAlbumsCustomListTile  extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
                Image.network(album.imageUrl ?? '' ,errorBuilder: (_,__,___){
-                return buildIcon( context);
+
+                 return buildIcon( context);
               } )  ,
               Padding(
                 padding:  EdgeInsets.only(top: 2.sp, left: 5.sp,bottom: 2.sp,right: 5.sp),
@@ -38,7 +44,7 @@ class StoredAlbumsCustomListTile  extends StatelessWidget {
                     children: [
                       Container(
                           width: 20.w ,
-                          child: Text(album.albumName ?? ' ',overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,)),
+                          child: Text(album.albumName ?? ' ',overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,)),
 
                       SizedBox(height: 2.h,),
                       Container(
@@ -53,11 +59,11 @@ class StoredAlbumsCustomListTile  extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Artist Name:',style: Theme.of(context).textTheme.caption,),
+                                  Text('Artist Name:',style: AppTextStyles.tileCaptionTextStyle,),
                                   SizedBox(height: 2.sp,),
                                   Container(
                                       width: 50.w,
-                                      child: Text(album.artistName ?? ' ',overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyText1,))
+                                      child: Text(album.artistName ?? ' ',overflow: TextOverflow.ellipsis,style: AppTextStyles.tileBodyTextStyle,))
                                 ],
 
                               ),
@@ -99,7 +105,7 @@ class StoredAlbumsCustomListTile  extends StatelessWidget {
 
   showAlertDialog(BuildContext context) {
 
-    // set up the buttons
+
     Widget cancelButton = TextButton(
       child: Text("Cancel"),
       onPressed:  () {
@@ -129,7 +135,7 @@ class StoredAlbumsCustomListTile  extends StatelessWidget {
       },
     );
 
-    // set up the AlertDialog
+
     AlertDialog alert = AlertDialog(
       title: Text("Warning"),
       content: Text("Would you like to delete the album from the Favorite List "),

@@ -12,6 +12,11 @@ import 'custom_widgets/stored_album_list_tile.dart';
 
 
 
+/// The first loading Screen of the app
+/// that shows the Stored Albums in the list
+/// and also can Navigate the user to the Search Page of Artists
+
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -46,9 +51,8 @@ class _MainScreenState extends State<MainScreen> {
             Center(
               child: Column(
                 children: [
-
                     Padding(
-                      padding:   EdgeInsets.symmetric( vertical: 8.h),
+                      padding:   EdgeInsets.only( bottom: 5.h,top: SizerUtil.orientation == Orientation.portrait ? 5.h : 1.w,),
                       child: Text(AppStrings.mainScreenTitle,
                         maxLines: 3,
                         style: AppTextStyles.screenHeaderTextStyle,
@@ -64,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
                          child: Padding(
                            padding:  EdgeInsets.only(left: 5.sp,right: 5.sp),
                            child: TextButton(
-
+                               key: Key('searchArtistButton'),
                                onPressed: (){
                                  Navigator.of(context).pushNamed('/search_page');
                                },
@@ -95,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  ///Button change the apps theme
+  ///A Button that changes the apps theme
   TextButton buildThemeIconButton(BuildContext context) => TextButton(
     onPressed: () =>
 
@@ -181,9 +185,9 @@ class _MainScreenState extends State<MainScreen> {
 
       return Padding(
         padding:
-        EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w, bottom: 2.h),
+        EdgeInsets.only(top: 2.h, left: 5.w, right: 5.w, bottom: 2.h),
         child: Container(
-          height: SizerUtil.orientation == Orientation.portrait ? 50.h : 50.w,
+          height: SizerUtil.orientation == Orientation.portrait ? 65.h : 35.w, // To control the size of the List in case of orientation .
           child: ListView.separated(
 
                 itemBuilder: (context, index) {
