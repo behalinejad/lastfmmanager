@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_fm_audio_management/core/constants/strings.dart';
 import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/logic/bloc/artist_info_bloc.dart';
 import 'package:last_fm_audio_management/logic/cubit/theme_cubit/theme_cubit.dart';
@@ -7,6 +8,14 @@ import 'package:last_fm_audio_management/models/artist_info.dart';
 import 'package:last_fm_audio_management/presentation/pages/custom_widgets/search_page_custom_list_tile.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
+
+
+
+///
+/// The page is for searching the Artists by the
+/// text that user enters .
+///
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -129,7 +138,7 @@ class _SearchPageState extends State<SearchPage> {
                         width: 10,
                       ),
                       Text(
-                        ' Loading ...',
+                        AppStrings.isLoadingMessage,
                         style: AppTextStyles.screenHeader2TextStyle,
                       )
                     ],
@@ -151,9 +160,11 @@ class _SearchPageState extends State<SearchPage> {
                 ? _buildCustomListView(_currentResults)
                 : Padding(
                     padding: EdgeInsets.only(top: 5.h),
-                    child: Text(
-                      ' OOPs , Nothing found ',
-                      style: AppTextStyles.screenHeader2TextStyle,
+                    child: Center(
+                      child: Text(
+                        AppStrings.nothingFoundMessage,
+                        style: AppTextStyles.screenHeader2TextStyle,
+                      ),
                     ),
                   );
           }
@@ -163,9 +174,11 @@ class _SearchPageState extends State<SearchPage> {
           } else
             return Padding(
               padding: EdgeInsets.only(top: 5.h),
-              child: Text(
-                ' OOPs , Nothing found ',
-                style: AppTextStyles.screenHeader2TextStyle,
+              child: Center(
+                child: Text(
+                  AppStrings.nothingFoundMessage,
+                  style: AppTextStyles.screenHeader2TextStyle,
+                ),
               ),
             );
 
@@ -211,7 +224,7 @@ class _SearchPageState extends State<SearchPage> {
                   return Padding(
                     padding: const EdgeInsets.only(
                         right: 16, left: 16, top: 3, bottom: 3),
-                    child: CustomListTile(
+                    child: SearchPageCustomListTile(
                       artist: result,
                     ),
                   );
@@ -226,9 +239,11 @@ class _SearchPageState extends State<SearchPage> {
         ),
       );
     } catch (e) {
-      return Text(
-        'OOPs something went wrong ',
-        style: AppTextStyles.screenWarningTextStyle,
+      return Center(
+        child: Text(
+          AppStrings.nothingFoundMessage,
+          style: AppTextStyles.screenWarningTextStyle,
+        ),
       );
     }
   }

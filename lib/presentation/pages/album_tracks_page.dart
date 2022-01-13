@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_fm_audio_management/core/constants/strings.dart';
 import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/logic/bloc/album_tracks_bloc.dart';
 import 'package:last_fm_audio_management/logic/cubit/theme_cubit/theme_cubit.dart';
@@ -20,7 +21,8 @@ late model.AlbumTracks _currentAlbumTracks;
 List<model.Track> _albumTrackList = [];
 
 
-
+/// This Page shows the list of Tracks in the selected
+/// Albums that user has selected in Top Albums page
 
 class _AlbumTracksState extends State<AlbumTracks> {
 
@@ -49,10 +51,12 @@ class _AlbumTracksState extends State<AlbumTracks> {
           if (state is AlbumTracksIsNotSearched) {
             return Padding(
               padding: EdgeInsets.only(top: 10.h),
-              child: Text(
-                ' Not Loaded yet',
-                textDirection: TextDirection.ltr,
-                style: AppTextStyles.screenHeader2TextStyle,
+              child: Center(
+                child: Text(
+                  ' Not Loaded yet',
+                  textDirection: TextDirection.ltr,
+                  style: AppTextStyles.screenHeader2TextStyle,
+                ),
               ),
             );
           } else if (state is AlbumTracksIsLoading) {
@@ -71,7 +75,7 @@ class _AlbumTracksState extends State<AlbumTracks> {
                         width: 10,
                       ),
                       Text(
-                        ' Loading ...',
+                        AppStrings.isLoadingMessage,
                         style: AppTextStyles.screenHeader2TextStyle,
                       )
                     ],
@@ -88,7 +92,7 @@ class _AlbumTracksState extends State<AlbumTracks> {
               padding: EdgeInsets.only(top: 5.h),
               child: Center(
                 child: Text(
-                  ' OOPs , Nothing found  ',
+                  AppStrings.nothingFoundMessage,
                   style: AppTextStyles.screenHeader2TextStyle,
                 ),
               ),
@@ -100,7 +104,7 @@ class _AlbumTracksState extends State<AlbumTracks> {
               padding: EdgeInsets.only(top: 5.h),
               child: Center(
                 child: Text(
-                  ' OOPs , Nothing found . ',
+                  AppStrings.nothingFoundMessage,
                   style: AppTextStyles.screenHeader2TextStyle,
                 ),
               ),
@@ -170,7 +174,7 @@ class _AlbumTracksState extends State<AlbumTracks> {
     } catch (e) {
       return Center(
         child: Text(
-          'OOPs something went wrong ',
+          AppStrings.nothingFoundMessage,
           style: AppTextStyles.screenWarningTextStyle,
         ),
       );

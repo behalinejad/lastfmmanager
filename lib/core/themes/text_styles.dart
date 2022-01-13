@@ -15,6 +15,7 @@ class AppTextStyles {
   static final  screenWarningTextStyle = GoogleFonts.lato(fontSize: 12.sp);
   static final  tileCaptionTextStyle = TextStyle(fontSize: 10.sp,fontWeight: FontWeight.w200);
   static final  tileBodyTextStyle = TextStyle(fontSize: 10.sp,fontWeight: FontWeight.w500);
+  static final  platformAlertTitleTextStyle = TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w900);
 
 
 

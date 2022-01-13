@@ -8,6 +8,11 @@ import 'package:sizer/sizer.dart';
 
 
 
+///
+/// The widget is a list tile that shows the detail of top albums .
+/// which is used in  the Top album page .
+///
+
 class TopAlbumsCustomListTile  extends StatelessWidget {
   final topAlbum.Album album ;
   const TopAlbumsCustomListTile ({Key? key,required this.album, }) : super(key: key);

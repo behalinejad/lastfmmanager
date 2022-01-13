@@ -1,6 +1,8 @@
 
-/// The Model is to save and retrieve state of
-/// Stored Favorite Albums by user
+///
+/// The Model is Used to save and retrieve state of
+/// Stored Favorite Albums by user for Hydrated bloc
+///
 
 class StoredAlbums {
   List<Album>? albums;

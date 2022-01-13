@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_fm_audio_management/core/constants/strings.dart';
 import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/logic/bloc/top_albums_bloc.dart';
 import 'package:last_fm_audio_management/logic/cubit/theme_cubit/theme_cubit.dart';
@@ -7,6 +8,14 @@ import 'package:last_fm_audio_management/models/top_albums.dart';
 import 'package:last_fm_audio_management/presentation/pages/custom_widgets/top_album_custom_list_tile.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
+
+
+///
+/// Top Albums Of the Selected artist are shown
+/// in this page . User can add or remove Albums to the list of Favorite albums .
+///
+
+
 
 class TopAlbums extends StatefulWidget {
   const TopAlbums({Key? key, required this.mbId}) : super(key: key);
@@ -74,7 +83,7 @@ class _TopAlbumsState extends State<TopAlbums> {
                             width: 10,
                           ),
                           Text(
-                            ' Loading ...',
+                            AppStrings.isLoadingMessage,
                             style: AppTextStyles.screenHeader2TextStyle,
                           )
                         ],
@@ -95,9 +104,11 @@ class _TopAlbumsState extends State<TopAlbums> {
                     ? _buildCustomListView(_currentAlbumList)
                     : Padding(
                   padding: EdgeInsets.only(top: 5.h),
-                  child: Text(
-                    ' OOPs , Nothing found ',
-                    style: AppTextStyles.screenHeader2TextStyle,
+                  child: Center(
+                    child: Text(
+                      AppStrings.nothingFoundMessage,
+                      style: AppTextStyles.screenHeader2TextStyle,
+                    ),
                   ),
                 );
               }
@@ -107,9 +118,11 @@ class _TopAlbumsState extends State<TopAlbums> {
               } else
                 return Padding(
                   padding: EdgeInsets.only(top: 5.h),
-                  child: Text(
-                    ' OOPs , Nothing found ',
-                    style: AppTextStyles.screenHeader2TextStyle,
+                  child: Center(
+                    child: Text(
+                      AppStrings.nothingFoundMessage,
+                      style: AppTextStyles.screenHeader2TextStyle,
+                    ),
                   ),
                 );
 
@@ -126,10 +139,10 @@ class _TopAlbumsState extends State<TopAlbums> {
 
       return Column(
         children: [
-          Text(artistName + " Albums ",style: AppTextStyles.screenHeader2TextStyle,),
+          Expanded(child: Text(artistName + " Albums ",style: AppTextStyles.screenHeader2TextStyle,)),
           Padding(
             padding:
-            EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w, bottom: 2.h),
+            EdgeInsets.only(top: 2.h, left: 5.w, right: 5.w, bottom: 2.h),
             child: Container(
               height: SizerUtil.orientation == Orientation.portrait ? 75.h : 50.w,
               child: SmartRefresher(

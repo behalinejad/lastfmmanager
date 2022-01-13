@@ -4,10 +4,16 @@ import 'package:last_fm_audio_management/models/artist_info.dart';
 import 'package:sizer/sizer.dart';
 
 
+///
+/// This widget is a list tile on the Search page
+/// that show the details about the artists .
+///
 
-class CustomListTile  extends StatelessWidget {
+
+
+class SearchPageCustomListTile  extends StatelessWidget {
   final Artist artist ;
-  const CustomListTile ({Key? key,required this.artist, }) : super(key: key);
+  const SearchPageCustomListTile ({Key? key,required this.artist, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

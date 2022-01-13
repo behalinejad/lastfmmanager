@@ -22,4 +22,13 @@ class AppStrings {
   static  final topAlbumsTitle  = 'Search music ';
 
 
+
+  /// Messages
+
+  static  final nothingFoundMessage  = 'OOPs , Nothing found ';
+  static  final isLoadingMessage  = 'Is Loading.... ';
+
+
+
+
 }

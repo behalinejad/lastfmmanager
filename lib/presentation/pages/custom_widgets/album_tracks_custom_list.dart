@@ -4,6 +4,11 @@ import 'package:last_fm_audio_management/models/album_tracks.dart';
 import 'package:sizer/sizer.dart';
 
 
+///
+/// ListTile That has been used in Album Tracks Page
+/// and contains Tracks Detail
+///
+
 
 class AlbumTracksCustomListTile  extends StatelessWidget {
   final Track track ;
@@ -19,9 +24,6 @@ class AlbumTracksCustomListTile  extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: InkWell(                         /// to act like a Button while tapping on
-          onTap: ()  {
-
-          },
           splashColor: Colors.black,
           child: Container(
             height: 8.h,

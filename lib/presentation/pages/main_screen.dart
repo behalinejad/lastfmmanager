@@ -36,63 +36,68 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Theme.of(context).backgroundColor,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+      body: SingleChildScrollView(
+        child: Container(
+          color: Theme.of(context).backgroundColor,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
 
-              children: [
-
-                buildThemeIconButton(context),
-              ],
-            ),
-            Center(
-              child: Column(
                 children: [
-                    Padding(
-                      padding:   EdgeInsets.only( bottom: 5.h,top: SizerUtil.orientation == Orientation.portrait ? 5.h : 1.w,),
-                      child: Text(AppStrings.mainScreenTitle,
-                        maxLines: 3,
-                        style: AppTextStyles.screenHeaderTextStyle,
+
+                  buildThemeIconButton(context),
+                ],
+              ),
+              Center(
+                child: Column(
+                  children: [
+                      Padding(
+                        padding:   EdgeInsets.only( bottom: 5.h,top: SizerUtil.orientation == Orientation.portrait ? 5.h : 1.w,),
+                        child: Text(AppStrings.mainScreenTitle,
+                          maxLines: 3,
+                          style: AppTextStyles.screenHeaderTextStyle,
+                        ),
                       ),
-                    ),
-                   ClipRRect(
-                     borderRadius: BorderRadius.circular(10),
-                     child: SizedBox(
-                       height: 7.h,
-                       width: 50.w,
-                       child: Container(
-                         color: Theme.of(context).buttonColor,
-                         child: Padding(
-                           padding:  EdgeInsets.only(left: 5.sp,right: 5.sp),
-                           child: TextButton(
-                               key: Key('searchArtistButton'),
-                               onPressed: (){
-                                 Navigator.of(context).pushNamed('/search_page');
-                               },
-                               child:  Row(
-                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                 children: [
-                                   Icon(Icons.search_outlined,color: AppTextStyles.screenButtonTextStyle.color,),
-                                   Text(AppStrings.mainScreenSearchButtonTitle, // Search Button
-                                        style: AppTextStyles.screenButtonTextStyle,
+                     ClipRRect(
+                       borderRadius: BorderRadius.circular(10),
+                       child: SizedBox(
+                         height: 7.h,
+                         width: 45.w,
+                         child: Container(
+                           color: Theme.of(context).buttonColor,
+                           child: Padding(
+                             padding:  EdgeInsets.only(left: 5.sp,right: 5.sp),
+                             child: TextButton(
+                                 key: Key('searchArtistButton'),
+                                 onPressed: (){
+                                   Navigator.of(context).pushNamed('/search_page');
+                                 },
+                                 child:  Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Icon(Icons.search_outlined,color: AppTextStyles.screenButtonTextStyle.color,),
 
-                                   ),
-                                   SizedBox(width: 1,),
-                                 ],
-                               )  ),
+                                     Expanded(
+                                       child: Text(AppStrings.mainScreenSearchButtonTitle, // Search Button
+                                            style: AppTextStyles.screenButtonTextStyle,
 
+                                       ),
+                                     ),
+
+                                   ],
+                                 )  ),
+
+                           ),
                          ),
                        ),
                      ),
-                   ),
-                  _buildSortedAlbumsPageBody(),
-                ],
+                    _buildSortedAlbumsPageBody(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
 
@@ -143,7 +148,7 @@ class _MainScreenState extends State<MainScreen> {
                         width: 10,
                       ),
                       Text(
-                        ' Loading ...',
+                        AppStrings.isLoadingMessage,
                         style: AppTextStyles.screenHeader2TextStyle,
                       )
                     ],
@@ -168,9 +173,11 @@ class _MainScreenState extends State<MainScreen> {
 
             return Padding(
               padding: EdgeInsets.only(top: 5.h),
-              child: Text(
-                ' OOPs , Nothing found ',
-                style: AppTextStyles.screenHeader2TextStyle,
+              child: Center(
+                child: Text(
+                  AppStrings.nothingFoundMessage,
+                  style: AppTextStyles.screenHeader2TextStyle,
+                ),
               ),
             );
 
@@ -187,6 +194,7 @@ class _MainScreenState extends State<MainScreen> {
         padding:
         EdgeInsets.only(top: 2.h, left: 5.w, right: 5.w, bottom: 2.h),
         child: Container(
+          key: Key('StoredAlbumContainer'),
           height: SizerUtil.orientation == Orientation.portrait ? 65.h : 35.w, // To control the size of the List in case of orientation .
           child: ListView.separated(
 
@@ -195,7 +203,7 @@ class _MainScreenState extends State<MainScreen> {
                 return Padding(
                   padding: const EdgeInsets.only(
                       right: 16, left: 16, top: 3, bottom: 3),
-                  child: StoredAlbumsCustomListTile(album:result ,),
+                  child: StoredAlbumsCustomListTile(album:result ,key:Key('StoredAlbumsCustomListTile') ,),
                 );
               },
               scrollDirection: Axis.vertical,
@@ -208,7 +216,7 @@ class _MainScreenState extends State<MainScreen> {
       );
     } catch (e) {
       return Text(
-        'OOPs something went wrong ',
+        AppStrings.nothingFoundMessage,
         style: AppTextStyles.screenWarningTextStyle,
       );
     }
