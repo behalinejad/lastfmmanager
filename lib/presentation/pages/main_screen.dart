@@ -36,6 +36,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Container(
           color: Theme.of(context).backgroundColor,
@@ -45,7 +46,6 @@ class _MainScreenState extends State<MainScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
 
                 children: [
-
                   buildThemeIconButton(context),
                 ],
               ),

@@ -24,7 +24,6 @@ class FakeStoredAlbumState extends Fake implements StoredAlbumsState {}
 class FakeStoredAlbumEvent extends Fake implements StoredAlbumsEvent {}
 
 
-
 Future<void> main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
@@ -77,25 +76,6 @@ Future<void> main() async {
 
 
   });
-  /*testWidgets(' Check loading a test Stored Albums   ', (WidgetTester tester) async {
 
-    tester.binding.window.physicalSizeTestValue = Size(600, 800);
-    MockThemeCubit _themeCubit = MockThemeCubit();
-    _themeCubit.updateAppTheme(ThemeMode.dark);
-
-    MockStoredAlbumsBloc _storedAlbumsBloc = MockStoredAlbumsBloc();
-
-    StoredAlbums _storedAlbums = StoredAlbums(albums: [Album(albumName: 'test Name ',albumMbId: 'AlbumMbId',
-        artistMbId:'ArtistMbid',artistName: 'ArtistName',imageUrl: ' ' )]) ;
-
-
-
-    await tester.pumpWidget( makeTestableWidget(child:MyApp(), mockThemeCubit: _themeCubit, mockStoredAlbumsBloc: _storedAlbumsBloc) );
-      _storedAlbumsBloc.add(FetchStoredAlbums(_storedAlbums));
-      await tester.pump( Duration(seconds:5));
-
-    expect(find.byKey(Key('StoredAlbumContainer'),), findsOneWidget);
-
-  });*/
 
 }

@@ -30,7 +30,7 @@ abstract class PlatformWidget extends StatelessWidget {
 }
 
 class PlatformAlertDialog extends PlatformWidget {
-  PlatformAlertDialog({required this.title, required this.content, required this.cancelActionText, required this.defaultActionText, required this.textDirection});
+  PlatformAlertDialog({required this.title, required this.content,  this.cancelActionText = '', required this.defaultActionText, required this.textDirection});
   final String title;
   final String content;
   final String cancelActionText;

@@ -8,7 +8,10 @@ class ThemeState extends Equatable{
   ThemeState({required this.themeMode});
 
   @override
-  List<Object?> get props => [];
+
+  List<Object?> get props => [themeMode];
+
+
 
 
 }

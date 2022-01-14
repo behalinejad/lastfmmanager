@@ -56,16 +56,21 @@ class _MyAppState extends State<MyApp> {
   }
 
 }
-class MusicManagerApp extends StatelessWidget {
+class MusicManagerApp extends StatefulWidget {
   const MusicManagerApp({Key? key}) : super(key: key);
 
+  @override
+  State<MusicManagerApp> createState() => _MusicManagerAppState();
+}
+
+class _MusicManagerAppState extends State<MusicManagerApp> {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType){
       return MaterialApp(
         theme: AppThemes.lightTheme,
         darkTheme: AppThemes.darkTheme,
-        themeMode: context.select((ThemeCubit themeCubit) => themeCubit.state.themeMode),
+        themeMode: context.select((ThemeCubit themeCubit) =>themeCubit.state.themeMode),
         debugShowCheckedModeBanner: false,
         onGenerateRoute:_appRouter.onGenerateRoute ,
       );

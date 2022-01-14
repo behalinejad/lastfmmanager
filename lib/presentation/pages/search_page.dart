@@ -68,6 +68,7 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               width: 50.w,
               child: TextField(
+
                 key: Key('searchArtistTextField'),
                 controller: _searchTextFieldController,
                 decoration: InputDecoration(

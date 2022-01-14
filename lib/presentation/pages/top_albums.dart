@@ -48,86 +48,91 @@ class _TopAlbumsState extends State<TopAlbums> {
               : Colors.white, //change your color here
         ),
       ),
-      body: _buildTopAlbumsPageBody(),
+      body: SingleChildScrollView(child: _buildTopAlbumsPageBody()),
     );
   }
 
   Widget _buildTopAlbumsPageBody() {
     final topAlbumsBloc = BlocProvider.of<TopAlbumsBloc>(context);
     topAlbumsBloc.add(FetchTopAlbums(widget.mbId,_currentPage));
-    return BlocBuilder<TopAlbumsBloc, TopAlbumsState>(
-          /// the part that need to rebuild by bloc state management
-            builder: (context, state) {
-              if (state is TopAlbumsIsNotSearched) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: Text(
-                    ' Top Albums of ${widget.mbId}',
-                    textDirection: TextDirection.ltr,
-                    style: AppTextStyles.screenHeader2TextStyle,
-                  ),
-                );
-              } else if (state is TopAlbumsIsLoading) {
-                /// showing Circular Progress indicator while bloc is on isLoading state
-                if (!_isPagination)
+    return Container(
+      height: SizerUtil.orientation == Orientation.portrait ? 85.h : 75.w,
+      child: BlocBuilder<TopAlbumsBloc, TopAlbumsState>(
+            /// the part that need to rebuild by bloc state management
+              builder: (context, state) {
+                if (state is TopAlbumsIsNotSearched) {
                   return Padding(
                     padding: EdgeInsets.only(top: 10.h),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(
-                            strokeWidth: 2,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            AppStrings.isLoadingMessage,
-                            style: AppTextStyles.screenHeader2TextStyle,
-                          )
-                        ],
+                    child: Expanded(
+                      child: Text(
+                        ' Top Albums of ${widget.mbId}',
+                        textDirection: TextDirection.ltr,
+                        style: AppTextStyles.screenHeader2TextStyle,
                       ),
                     ),
                   );
-              } else if (state is TopAlbumsIsLoaded) {
-                /// while bloc is on isLoaded state and api has responded .
-                _currentTopAlbumOfArtist = state.getTopAlbums;
-                if (_isPagination) {
-                  _currentAlbumList.addAll(_currentTopAlbumOfArtist.topAlbums?.album ?? [],
+                } else if (state is TopAlbumsIsLoading) {
+                  /// showing Circular Progress indicator while bloc is on isLoading state
+                  if (!_isPagination)
+                    return Padding(
+                      padding: EdgeInsets.only(top: 10.h),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              AppStrings.isLoadingMessage,
+                              style: AppTextStyles.screenHeader2TextStyle,
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                } else if (state is TopAlbumsIsLoaded) {
+                  /// while bloc is on isLoaded state and api has responded .
+                  _currentTopAlbumOfArtist = state.getTopAlbums;
+                  if (_isPagination) {
+                    _currentAlbumList.addAll(_currentTopAlbumOfArtist.topAlbums?.album ?? [],
+                    );
+                    refreshController.loadComplete();
+                    _isPagination = false;
+                  } else
+                    _currentAlbumList = _currentTopAlbumOfArtist.topAlbums?.album ?? [];
+                  return _currentAlbumList.length > 0
+                      ? _buildCustomListView(_currentAlbumList)
+                      : Padding(
+                    padding: EdgeInsets.only(top: 5.h),
+                    child: Center(
+                      child: Text(
+                        AppStrings.nothingFoundMessage,
+                        style: AppTextStyles.screenHeader2TextStyle,
+                      ),
+                    ),
                   );
-                  refreshController.loadComplete();
-                  _isPagination = false;
+                }
+
+                if (_isPagination) {
+                  return _buildCustomListView(_currentAlbumList);
                 } else
-                  _currentAlbumList = _currentTopAlbumOfArtist.topAlbums?.album ?? [];
-                return _currentAlbumList.length > 0
-                    ? _buildCustomListView(_currentAlbumList)
-                    : Padding(
-                  padding: EdgeInsets.only(top: 5.h),
-                  child: Center(
-                    child: Text(
-                      AppStrings.nothingFoundMessage,
-                      style: AppTextStyles.screenHeader2TextStyle,
+                  return Padding(
+                    padding: EdgeInsets.only(top: 5.h),
+                    child: Center(
+                      child: Text(
+                        AppStrings.nothingFoundMessage,
+                        style: AppTextStyles.screenHeader2TextStyle,
+                      ),
                     ),
-                  ),
-                );
-              }
+                  );
 
-              if (_isPagination) {
-                return _buildCustomListView(_currentAlbumList);
-              } else
-                return Padding(
-                  padding: EdgeInsets.only(top: 5.h),
-                  child: Center(
-                    child: Text(
-                      AppStrings.nothingFoundMessage,
-                      style: AppTextStyles.screenHeader2TextStyle,
-                    ),
-                  ),
-                );
-
-              /// in the case of error or no search result
-            });
+                /// in the case of error or no search result
+              }),
+    );
 
   }
 

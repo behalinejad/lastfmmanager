@@ -17,7 +17,7 @@ void main (){
 
 
     test('The initial value of the ThemeCubit is TopAlbumsIsNotSearched ', (){
-      expect(themeCubit.state,  ThemeState(themeMode: ThemeMode.dark));
+      expect(themeCubit.state.themeMode,  ThemeState(themeMode: ThemeMode.dark).themeMode);
     });
 
 

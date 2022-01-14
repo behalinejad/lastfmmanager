@@ -4,6 +4,7 @@ import 'package:last_fm_audio_management/core/themes/text_styles.dart';
 import 'package:last_fm_audio_management/logic/bloc/stored_albums_bloc.dart';
 import 'package:last_fm_audio_management/models/stored_albums.dart' ;
 import 'package:last_fm_audio_management/models/top_albums.dart' as topAlbum;
+import 'package:last_fm_audio_management/presentation/pages/custom_widgets/platform_alert_dialog.dart';
 import 'package:sizer/sizer.dart';
 
 
@@ -30,7 +31,17 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: InkWell(                         /// to act like a Button while tapping on
         onTap: ()  {
+          if (album.mbid != null)
           Navigator.of(context).pushNamed('/album_tracks',arguments: album.mbid);
+          else
+            PlatformAlertDialog(
+              title: 'OOPs',
+              content: 'The details are enough prepared by the Api to show the Tracks .    ',
+              cancelActionText: '',
+              defaultActionText: 'Ok',
+              textDirection: TextDirection.ltr,
+
+            ).show(context);
         },
         splashColor: Colors.black,
         child: Container(
@@ -101,13 +112,34 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
                                    imageUrl = album.image![2].text! ;
                                Album tmpAlbum = Album(albumMbId: album.mbid,albumName: album.name,
                                                                 artistName: album.artist?.name.toString() ?? '',artistMbId: album.artist?.mbid ?? '',imageUrl:imageUrl  );
-                               if (storedAlbums.albums != null)
-                                storedAlbums.albums?.add(tmpAlbum);
-                                else
-                                  storedAlbums.albums = [tmpAlbum];
-                               storedAlbumBloc.add(FetchStoredAlbums(storedAlbums));
+
+                               if (tmpAlbum.albumMbId != null && tmpAlbum.albumName != null) {
+                                 if (storedAlbums.albums != null)
+                                   storedAlbums.albums?.add(tmpAlbum);
+                                 else
+                                   storedAlbums.albums = [tmpAlbum];
+                                 storedAlbumBloc.add(
+                                     FetchStoredAlbums(storedAlbums));
+                               }else {
+                                  PlatformAlertDialog(
+                                     title: 'Error',
+                                     content: 'Unfortunately, The Albums detail data is not complete enough to store .  ',
+                                     cancelActionText: '',
+                                     defaultActionText: 'Ok',
+                                     textDirection: TextDirection.ltr,
+
+                                 ).show(context);
+                               }
+
                              } catch (e) {
-                               print(e);
+                               PlatformAlertDialog(
+                                 title: 'OOps',
+                                 content: 'Something on the Process went Wrong   ',
+                                 cancelActionText: '',
+                                 defaultActionText: 'Ok',
+                                 textDirection: TextDirection.ltr,
+
+                               ).show(context);
                              }
                            }
                          }else {
@@ -125,7 +157,14 @@ class TopAlbumsCustomListTile  extends StatelessWidget {
                              }
 
                            } catch (e) {
-                             print(e);
+                             PlatformAlertDialog(
+                               title: 'OOps',
+                               content: 'Something on the Process went Wrong   ',
+                               cancelActionText: '',
+                               defaultActionText: 'Ok',
+                               textDirection: TextDirection.ltr,
+
+                             ).show(context);
                            }
                          }
 

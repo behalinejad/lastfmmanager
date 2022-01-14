@@ -56,6 +56,8 @@ class AppThemes {
         systemNavigationBarDividerColor: Colors.transparent,
       ),
     );
+
+
   }
 
 
