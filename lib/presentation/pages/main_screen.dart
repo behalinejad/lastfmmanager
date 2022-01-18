@@ -188,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
 
   /// The List view that display Results for Albums
   Widget _buildCustomListView(List<Album> currentResults) {
-    try {
+
 
       return Padding(
         padding:
@@ -214,12 +214,7 @@ class _MainScreenState extends State<MainScreen> {
               itemCount: currentResults.length),
         ),
       );
-    } catch (e) {
-      return Text(
-        AppStrings.nothingFoundMessage,
-        style: AppTextStyles.screenWarningTextStyle,
-      );
-    }
+
   }
 
 
