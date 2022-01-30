@@ -191,7 +191,7 @@ class _SearchPageState extends State<SearchPage> {
 
   /// The List view that display Results for Artists
   Widget _buildCustomListView(List<Artist> currentResults) {
-    try {
+
       return Expanded(
         child: Padding(
           padding:
@@ -239,13 +239,6 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       );
-    } catch (e) {
-      return Center(
-        child: Text(
-          AppStrings.nothingFoundMessage,
-          style: AppTextStyles.screenWarningTextStyle,
-        ),
-      );
-    }
+
   }
 }

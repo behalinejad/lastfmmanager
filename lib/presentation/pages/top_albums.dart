@@ -138,7 +138,7 @@ class _TopAlbumsState extends State<TopAlbums> {
 
   /// The List view that display Results for Albums
   Widget _buildCustomListView(List<Album> currentResults) {
-    try {
+
       String artistName = currentResults[0].artist?.name ?? '' ;
 
 
@@ -189,11 +189,6 @@ class _TopAlbumsState extends State<TopAlbums> {
           ),
         ],
       );
-    } catch (e) {
-      return Text(
-        'OOPs something went wrong ',
-        style: AppTextStyles.screenWarningTextStyle,
-      );
-    }
+
   }
 }

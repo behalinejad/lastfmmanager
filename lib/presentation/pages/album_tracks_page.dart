@@ -117,67 +117,58 @@ class _AlbumTracksState extends State<AlbumTracks> {
 
   /// The List view that display Results for Tracks
   Widget _buildCustomListView(List<model.Track> currentResults, model.AlbumTracks currentAlbumTracks) {
-    try {
+
       String _albumName = currentAlbumTracks.album?.name ?? '' ;
       String imageUrl = '';
       if (currentAlbumTracks.album?.image![3] != null)    ///Using the large format of the image in case of existence
         imageUrl = currentAlbumTracks.album?.image![3].text ?? '' ;
 
 
-      return SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding:  EdgeInsets.only(bottom: 3.sp),
-              child: Text( _albumName,style: AppTextStyles.screenHeader2TextStyle,),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding:  EdgeInsets.only(bottom: 3.sp),
+            child: Text( _albumName,style: AppTextStyles.screenHeader2TextStyle,),
+          ),
+          imageUrl != '' ? Container(
+            height: SizerUtil.orientation == Orientation.portrait ? 40.h :50.w,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(imageUrl ,fit: BoxFit.fill,errorBuilder: (_,__,___){
+                return Container();
+              } ),
             ),
-            imageUrl != '' ? Container(
-              height: SizerUtil.orientation == Orientation.portrait ? 40.h :50.w,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(imageUrl ,fit: BoxFit.fill,errorBuilder: (_,__,___){
-                  return Container();
-                } ),
-              ),
-            )  : Container(),
-            Padding(
-              padding:  EdgeInsets.only(top: 5.sp,left: 20.w,right: 20.w),
-              child: Divider(thickness: 2,),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 1.h, left: 5.w, right: 5.w, bottom: 10.h),
-              child: Container(
-                height: SizerUtil.orientation == Orientation.portrait ? 75.h : 50.w,
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      final result = currentResults[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                            right: 16, left: 16, top: 3, bottom: 3),
-                        child: AlbumTracksCustomListTile(track:result ,albumTracks: _currentAlbumTracks,),
-                      );
-                    },
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    separatorBuilder: (_, index) => SizedBox(
-                      height: 5,
-                    ),
-                    itemCount: currentResults.length),
-              ),
-
+          )  : Container(),
+          Padding(
+            padding:  EdgeInsets.only(top: 5.sp,left: 20.w,right: 20.w),
+            child: Divider(thickness: 2,),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 1.h, left: 5.w, right: 5.w, bottom: 10.h),
+            child: Container(
+              height: SizerUtil.orientation == Orientation.portrait ? 75.h : 50.w,
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    final result = currentResults[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          right: 16, left: 16, top: 3, bottom: 3),
+                      child: AlbumTracksCustomListTile(track:result ,albumTracks: _currentAlbumTracks,),
+                    );
+                  },
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  separatorBuilder: (_, index) => SizedBox(
+                    height: 5,
+                  ),
+                  itemCount: currentResults.length),
             ),
 
-          ],
-        ),
+          ),
+
+        ],
       );
-    } catch (e) {
-      return Center(
-        child: Text(
-          AppStrings.nothingFoundMessage,
-          style: AppTextStyles.screenWarningTextStyle,
-        ),
-      );
-    }
+
   }
 }
